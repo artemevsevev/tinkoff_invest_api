@@ -1,0 +1,19 @@
+[package]
+name = "tinkoff_invest_api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+prost = "0.11"
+prost-types = "0.11"
+uuid = { version = "0.8", features = ["v4"] }
+tonic = { version = "0.8.0", features = ["tls", "tls-roots", "gzip"]}
+
+[dev-dependencies]
+async-stream = "0.3"
+futures = {version = "0.3", default-features = false, features = ["alloc"]}
+tokio = {version = "1.20", features = ["rt-multi-thread", "time", "fs", "macros", "net"]}
+tokio-stream = {version = "0.1", features = ["net"]}
+futures-util = {version = "0.3.21"}
