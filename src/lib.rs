@@ -13,6 +13,7 @@ use tonic::{
     transport::{self, Channel, ClientTlsConfig},
     Status,
 };
+use crate::tcs::orders_service_client::OrdersServiceClient;
 
 pub mod tcs;
 
@@ -172,6 +173,20 @@ impl TinkoffInvestService {
         channel: Channel,
     ) -> TIResult<StopOrdersServiceClient<InterceptedService<Channel, DefaultInterceptor>>> {
         let client = StopOrdersServiceClient::with_interceptor(
+            channel,
+            DefaultInterceptor {
+                token: self.token.clone(),
+            },
+        );
+
+        Ok(client)
+    }
+
+    pub async fn orders(
+        &self,
+        channel: Channel,
+    ) -> TIResult<OrdersServiceClient<InterceptedService<Channel, DefaultInterceptor>>> {
+        let client = OrdersServiceClient::with_interceptor(
             channel,
             DefaultInterceptor {
                 token: self.token.clone(),
